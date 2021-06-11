@@ -24,7 +24,7 @@ struct ContentView: View {
 					return "NoStringAvailable"
 				}
 				return "errorHappnedInFileUrl"
-	}()
+	}().trimmingCharacters(in: .whitespacesAndNewlines)
 	
 	
 	var body: some View {
@@ -33,13 +33,14 @@ struct ContentView: View {
 			VStack(alignment: .center, spacing: 30){
 				VStack(alignment: .center, spacing: 30){
 					Text("\(rootWord)")
-						.font(.largeTitle)
+						.font(.headline)
 					Text("Score: \(score)")
 				}
 				.padding()
 				
 				TextField("Enter the word", text: $inputWord, onCommit: listUpdate)
 					.textFieldStyle(RoundedBorderTextFieldStyle())
+					.autocapitalization(.allCharacters)
 					.foregroundColor(.blue)
 					.background(Color(.gray))
 					.cornerRadius(40)
@@ -72,7 +73,7 @@ struct ContentView: View {
 	}
 	
 	func tappedRestart(){
-		rootWord = { () -> String in
+		self.rootWord = { () -> String in
 					if let wordCollectionUrl = Bundle.main.url(forResource: "wordsCollection", withExtension: "txt"){
 						if let wordCollectionFileString = try? String(contentsOf: wordCollectionUrl){
 							let wordsList = wordCollectionFileString.components(separatedBy: "\n")
@@ -81,7 +82,8 @@ struct ContentView: View {
 						return "NoStringAvailable"
 					}
 					return "errorHappnedInFileUrl"
-		}()
+		}().trimmingCharacters(in: .whitespacesAndNewlines)
+		
 		self.inputWord = ""
 		self.answerList = [String]()
 		self.score = 0
@@ -90,13 +92,20 @@ struct ContentView: View {
 	
 	
 	func listUpdate(){
-		if isOriginal(inputWord){
-			if isPossible(inputWord){
-				if isReal(inputWord){
-					self.answerList.insert(self.inputWord.uppercased(), at: 0)
+		if isOriginal(self.inputWord){
+			if isPossible(self.inputWord){
+				if isReal(self.inputWord){
+					if isNotObvious(self.inputWord){
+						self.answerList.insert(self.inputWord, at: 0)
+						self.inputWord = ""
+						self.score += 10
+						return
+					}
+					self.alertMessage = "It's too Obvious"
+					self.showAlert = true
 					self.inputWord = ""
-					self.score += 1
 					return
+					
 				}
 				self.alertMessage = "Its a made up word"
 				self.showAlert = true
@@ -114,11 +123,11 @@ struct ContentView: View {
 	}
 	
 	func isOriginal(_ word: String) -> Bool{
-		return !self.answerList.contains(word.uppercased())
+		return !self.answerList.contains(word)
 	}
 	func isPossible(_ word: String) -> Bool{
 		let tempWord = self.rootWord
-		for letter in word.uppercased(){
+		for letter in word{
 			if (tempWord.firstIndex(of: letter) == nil){
 				return false
 			}
@@ -127,10 +136,16 @@ struct ContentView: View {
 	}
 	func isReal(_ word:String) -> Bool {
 		let checker = UITextChecker()
-		let range = NSRange(location: 0, length: word.uppercased().utf16.count)
-		let misspelled = checker.rangeOfMisspelledWord(in: word.uppercased(), range: range, startingAt: 0, wrap: false, language: "en")
+		let range = NSRange(location: 0, length: word.utf16.count)
+		let misspelled = checker.rangeOfMisspelledWord(in: word, range: range, startingAt: 0, wrap: false, language: "en")
 		return misspelled.location == NSNotFound
 		
+	}
+	func isNotObvious(_ word: String) -> Bool{
+		if word == self.rootWord || word.count < 3{
+			return false
+		}
+		return true
 	}
 }
 
