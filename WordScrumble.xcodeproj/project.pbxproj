@@ -11,6 +11,7 @@
 		C32FDF022670F0610001CD9B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C32FDF012670F0610001CD9B /* ContentView.swift */; };
 		C32FDF042670F0630001CD9B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C32FDF032670F0630001CD9B /* Assets.xcassets */; };
 		C32FDF072670F0630001CD9B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C32FDF062670F0630001CD9B /* Preview Assets.xcassets */; };
+		C32FDF0F267331D00001CD9B /* wordsCollection.txt in Resources */ = {isa = PBXBuildFile; fileRef = C32FDF0E267331D00001CD9B /* wordsCollection.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		C32FDF032670F0630001CD9B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C32FDF062670F0630001CD9B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C32FDF082670F0630001CD9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C32FDF0E267331D00001CD9B /* wordsCollection.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordsCollection.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 		C32FDEFE2670F0610001CD9B /* WordScrumble */ = {
 			isa = PBXGroup;
 			children = (
+				C32FDF0E267331D00001CD9B /* wordsCollection.txt */,
 				C32FDEFF2670F0610001CD9B /* WordScrumbleApp.swift */,
 				C32FDF012670F0610001CD9B /* ContentView.swift */,
 				C32FDF032670F0630001CD9B /* Assets.xcassets */,
@@ -128,6 +131,7 @@
 			files = (
 				C32FDF072670F0630001CD9B /* Preview Assets.xcassets in Resources */,
 				C32FDF042670F0630001CD9B /* Assets.xcassets in Resources */,
+				C32FDF0F267331D00001CD9B /* wordsCollection.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
