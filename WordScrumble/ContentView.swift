@@ -31,14 +31,18 @@ struct ContentView: View {
 		NavigationView{
 			
 			VStack(alignment: .center, spacing: 30){
-				HStack(alignment: .firstTextBaseline, spacing: 30){
-					Text("Word: \(rootWord)")
+				VStack(alignment: .center, spacing: 30){
+					Text("\(rootWord)")
+						.font(.largeTitle)
 					Text("Score: \(score)")
 				}
 				.padding()
 				
 				TextField("Enter the word", text: $inputWord, onCommit: listUpdate)
 					.textFieldStyle(RoundedBorderTextFieldStyle())
+					.foregroundColor(.blue)
+					.background(Color(.gray))
+					.cornerRadius(40)
 					.padding()
 				
 				List(0..<answerList.count, id: \.self){num in
